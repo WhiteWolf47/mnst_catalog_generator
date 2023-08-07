@@ -24,7 +24,8 @@ def get_data_from_google_sheet(sheet_name):
     sheet = client.open(sheet_name)
     data_sheet3 = sheet.worksheet("Master - Inventory").get_all_records()
     data_sheet5 = sheet.worksheet("Sneaker Product Template").get_all_values()
-
+    '''data_sheet3 = sheet.worksheet(0).get_all_records()
+    data_sheet5 = sheet.worksheet(1).get_all_values()'''
     return data_sheet3, data_sheet5
 
 # Function to convert PIL Image to PNG format
@@ -70,7 +71,7 @@ def generate_pdf(data, images):
 
 def main():
     st.title("Sneaker Reselling Catalog Generator")
-    data_sheet3, data_sheet5 = get_data_from_google_sheet("MNSt | Inventory Master - Active")
+    data_sheet3, data_sheet5 = get_data_from_google_sheet("Copy - MNSt | Inventory Master - Active")
     df_sheet3 = pd.DataFrame(data_sheet3)
     columns_ds5 = data_sheet5[0]
     data_sheet5 = data_sheet5[1:]
