@@ -22,9 +22,9 @@ def get_data_from_google_sheet(sheet_name):
     #creds = gspread.service_account_from_dict(creds)
     client = gspread.authorize(creds)
     sheet = client.open(sheet_name)
-    data_sheet3 = sheet.get_worksheet(0).get_all_values()
-    data_sheet5 = sheet.get_worksheet(1).get_all_values()
-    return data_sheet3, data_sheet5
+    data_sheet1 = sheet.get_worksheet(0).get_all_values()
+    data_sheet2 = sheet.get_worksheet(1).get_all_values()
+    return data_sheet1, data_sheet2
 
 # Function to convert PIL Image to PNG format
 def convert_to_png(image):
@@ -77,7 +77,8 @@ def main():
     # Drop duplicate 'Style Code 1' columns in df_sheet5 (if any)
     df_sheet5 = df_sheet5.loc[:, ~df_sheet5.columns.duplicated()]
     st.write(df_sheet3.columns)
-    st.write(df_sheet5.columns)
+    st.write(df_sheet3.head())
+    #st.write(df_sheet5.columns)
     
 
     # Filter options
