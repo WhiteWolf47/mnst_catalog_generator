@@ -83,7 +83,7 @@ def main():
 
     # Filter options
     product_name_filter = st.sidebar.text_input("Enter Product Name (Product List):")
-    size_filter = st.sidebar.selectbox("Select Size:", df_sheet3['Size'].unique())
+    #size_filter = st.sidebar.selectbox("Select Size:", df_sheet3['Size'].unique())
     location_filter = st.sidebar.selectbox("Select Location:", ["Mumbai", "Delhi"])
 
     if st.button('Generate Catalog'):
