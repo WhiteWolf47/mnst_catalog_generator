@@ -49,6 +49,7 @@ def fetch_images_from_urls(image_links):
         except:
             not_working_links.append(link)
     print(f"Links that didn't work: {not_working_links}")
+    st.write(f"Links that didn't work: {not_working_links}")
     return images
 
 # Function to generate PDF
