@@ -12,7 +12,7 @@ from urllib.parse import urlparse, urlunparse
 
 #fetching credentials from st.secrets
 #creds = st.secrets
-
+str.write('Sarthak')
 # Function to fetch data from Google Sheet
 def get_data_from_google_sheet(sheet_name):
     scope = ["https://spreadsheets.google.com/feeds",
