@@ -37,6 +37,7 @@ def convert_to_png(image):
 def fetch_images_from_urls(image_links):
     images = []
     not_working_links = []
+    not_working_links_index = []
     for link in image_links:
         try:
             response = requests.get(link)
@@ -48,26 +49,32 @@ def fetch_images_from_urls(image_links):
                     print(f"Error in opening image: {e}")
         except:
             not_working_links.append(link)
+            not_working_links_index.append(image_links.index(link))
     print(f"Links that didn't work: {not_working_links}")
     st.write(f"Links that didn't work: {not_working_links}")
-    return images
+    return images, not_working_links_index, not_working_links
 
 # Function to generate PDF
-def generate_pdf(data, images):
+def generate_pdf(data, images, not_working_links_index):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
 
     # Add filtered data and images to the PDF
+    p = 0
     for item, image in zip(data, images):
         c.drawString(100, 700, f"Product List: {item['Product List']}")
         c.drawString(100, 680, f"Size: {item['Size']}")
         c.drawString(100, 660, f"Site: {item['Site']}")
-        if image:
-            # Convert PIL Image to PNG format and read as ImageReader
-            image_bytes = convert_to_png(image)
-            img_reader = ImageReader(image_bytes)
-            c.drawImage(img_reader, 100, 100, width=200, height=200)
-        c.showPage()
+        if p in not_working_links_index:
+            c.drawString(100, 640, f"Image: Not Available")
+        else:
+            if image:
+                # Convert PIL Image to PNG format and read as ImageReader
+                image_bytes = convert_to_png(image)
+                img_reader = ImageReader(image_bytes)
+                c.drawImage(img_reader, 100, 100, width=200, height=200)
+            c.showPage()
+        p += 1
 
     c.save()
     buffer.seek(0)
@@ -120,9 +127,9 @@ def main():
         imagelinks = [link[:link.find(".jpg") + 4] if ".jpg" in link else link for link in imagelinks]
         imagelinks = imagelinks[:-1]
         print(imagelinks)
-        images = fetch_images_from_urls(imagelinks)
+        images, not_working_links_index, not_working_links = fetch_images_from_urls(imagelinks)
         #images = fetch_images_from_urls([urlparse(link)._replace(query="").geturl() for link in filtered_data["image_0"]])
-        pdf_buffer = generate_pdf(filtered_data.to_dict('records'), images)
+        pdf_buffer = generate_pdf(filtered_data.to_dict('records'), images, not_working_links_index)
         st.success("Catalog generated! Click the link below to download.")
         st.download_button("Download Catalog", pdf_buffer, file_name="catalog.pdf")
 
