@@ -22,7 +22,7 @@ def get_data_from_google_sheet(sheet_name):
     #creds = gspread.service_account_from_dict(creds)
     client = gspread.authorize(creds)
     sheet = client.open(sheet_name)
-    data_sheet3 = sheet.get_worksheet(0).get_all_records()
+    data_sheet3 = sheet.get_worksheet(0).get_all_values()
     data_sheet5 = sheet.get_worksheet(1).get_all_values()
     return data_sheet3, data_sheet5
 
