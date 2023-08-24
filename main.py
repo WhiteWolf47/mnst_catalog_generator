@@ -78,8 +78,8 @@ def main():
     df_sheet5 = pd.DataFrame(data_sheet5, columns=columns_ds5)
     # Drop duplicate 'Style Code 1' columns in df_sheet5 (if any)
     df_sheet5 = df_sheet5.loc[:, ~df_sheet5.columns.duplicated()]
-    print(df_sheet3.columns)
-    print(df_sheet5.columns)
+    st.write(df_sheet3.columns)
+    st.write(df_sheet5.columns)
     
 
     # Filter options
