@@ -36,14 +36,18 @@ def convert_to_png(image):
 # Function to fetch images from URLs
 def fetch_images_from_urls(image_links):
     images = []
+    not
     for link in image_links:
-        response = requests.get(link)
-        if response.status_code == 200:
-            try:
-                image = Image.open(BytesIO(response.content))
-                images.append(image)
-            except Exception as e:
-                print(f"Error in opening image: {e}")
+        try:
+            response = requests.get(link)
+            if response.status_code == 200:
+                try:
+                    image = Image.open(BytesIO(response.content))
+                    images.append(image)
+                except Exception as e:
+                    print(f"Error in opening image: {e}")
+        except:
+            not_working_links.append(link)
     return images
 
 # Function to generate PDF
