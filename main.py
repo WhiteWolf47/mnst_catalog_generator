@@ -36,7 +36,7 @@ def convert_to_png(image):
 # Function to fetch images from URLs
 def fetch_images_from_urls(image_links):
     images = []
-    not
+    not_working_links = []
     for link in image_links:
         try:
             response = requests.get(link)
