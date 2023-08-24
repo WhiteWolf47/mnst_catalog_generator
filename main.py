@@ -79,15 +79,10 @@ def main():
     columns = df_sheet3.iloc[0]
     df_sheet3 = df_sheet3[1:]
     df_sheet3.columns = columns
-    #df_sheet3.reset_index(drop=True, inplace=True)
-    st.write(df_sheet3.columns)
-    st.write(df_sheet3.head())
-    #st.write(df_sheet5.columns)
-    
 
     # Filter options
     product_name_filter = st.sidebar.text_input("Enter Product Name (Product List):")
-    #size_filter = st.sidebar.selectbox("Select Size:", df_sheet3['Size'].unique())
+    size_filter = st.sidebar.selectbox("Select Size:", df_sheet3['Size'].unique())
     location_filter = st.sidebar.selectbox("Select Location:", ["Mumbai", "Delhi"])
 
     if st.button('Generate Catalog'):
